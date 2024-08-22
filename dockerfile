@@ -9,6 +9,7 @@ RUN apt-get install -y vim && \
 	apt-get install -y gdb && \
 	apt-get install -y python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential && \
 	apt-get install -y ruby &&\
+	apt-get install -y gcc-multilib &&\
 	apt-get install -y binutils # readelf, objdump, strings, nm등이 존재
 
 RUN apt-get install -y wget && \
