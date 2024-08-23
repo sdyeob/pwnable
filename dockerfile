@@ -1,10 +1,12 @@
 FROM ubuntu:18.04
 #FROM ubuntu:22.04
 
-#ENV PATH="${PATH}:/usr/local/lib/python3.6/dist-packages/bin"
-#ENV LC_CTYPE=C.UTF-8
+ENV PATH="${PATH}:/usr/local/lib/python3.6/dist-packages/bin"
+ENV LC_CTYPE=C.UTF-8
 
 WORKDIR /apps_for_pwnable
+
+COPY files pwnable
 
 RUN apt-get update &&\
 	apt-get -y upgrade
@@ -21,6 +23,8 @@ RUN apt-get install -y vim \
 	build-essential \ 
 	ruby \
 	gcc-multilib \
+	tmux \
+	sudo \
 	binutils # readelf, objdump, strings, nm등이 존재
 
 # [2] sys.stderr.write(f"ERROR: {exc}") 에러 해결
@@ -34,10 +38,12 @@ RUN python3 -m pip install --upgrade pip && \
 RUN gem install one_gadget
 
 RUN git clone https://github.com/Gallopsled/pwntools.git && \
-	git clone https://github.com/JonathanSalwan/ROPgadget.git && \
-	git clone https://github.com/longld/peda.git
+	git clone https://github.com/JonathanSalwan/ROPgadget.git
 
-COPY files pwnable
-RUN echo "source /apps_for_pwnable/peda/peda.py" >> ~/.gdbinit
+RUN git clone https://github.com/pwndbg/pwndbg
+WORKDIR /apps_for_pwnable/pwndbg
+RUN git checkout 2023.03.19
+RUN ./setup.sh
+
 
 WORKDIR /apps_for_pwnable/pwnable

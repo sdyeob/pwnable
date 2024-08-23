@@ -1,0 +1,2 @@
+Library Link : export LD_PRELOAD=$(realpath ./libc-2.27.so)
+
