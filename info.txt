@@ -1,2 +1,3 @@
 Library Link : export LD_PRELOAD=$(realpath ./libc-2.27.so)
+p = process("./executefile", env= {"LD_PRELOAD" : "./libc-2.27.so"})
 
