@@ -37,12 +37,16 @@ RUN python3 -m pip install --upgrade pip && \
 
 RUN gem install one_gadget
 
+COPY files pwnable
+
+WORKDIR /root
+
 RUN git clone https://github.com/Gallopsled/pwntools.git && \
 	git clone https://github.com/JonathanSalwan/ROPgadget.git && \
+	git clone https://github.com/scwuaptx/Pwngdb.git && \
 	git clone https://github.com/longld/peda.git
 
-COPY files pwnable
-RUN echo "source /apps_for_pwnable/peda/peda.py" >> ~/.gdbinit
+RUN cp ./Pwngdb/.gdbinit ./
 
 WORKDIR /apps_for_pwnable/pwnable
 
