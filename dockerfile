@@ -1,17 +1,17 @@
+FROM ubuntu:16.04
 #FROM ubuntu:18.04
 #FROM ubuntu:22.04
 
-FROM ubuntu:19.10@sha256:f332c4057e21ec71cc8b20b05328d476104a069bfa6882877e0920e8140edcf0
-RUN sed -i s/archive.ubuntu.com/old-releases.ubuntu.com/g /etc/apt/sources.list
-RUN sed -i s/security.ubuntu.com/old-releases.ubuntu.com/g /etc/apt/sources.list
+#FROM ubuntu:19.10@sha256:f332c4057e21ec71cc8b20b05328d476104a069bfa6882877e0920e8140edcf0
+#RUN sed -i s/archive.ubuntu.com/old-releases.ubuntu.com/g /etc/apt/sources.list
+#RUN sed -i s/security.ubuntu.com/old-releases.ubuntu.com/g /etc/apt/sources.list
 
 #ENV PATH="${PATH}:/usr/local/lib/python3.6/dist-packages/bin"
 #ENV LC_CTYPE=C.UTF-8
 
 WORKDIR /apps_for_pwnable
 
-RUN apt-get update &&\
-	apt-get -y upgrade
+RUN apt-get update && apt-get -y upgrade
 
 # [1] Install Packages
 RUN apt-get install -y vim \
@@ -47,6 +47,7 @@ RUN git clone https://github.com/Gallopsled/pwntools.git && \
 	git clone https://github.com/longld/peda.git
 
 RUN cp ./Pwngdb/.gdbinit ./
+echo "source ~/peda/peda.py" >> ~/.gdbinit
 
 WORKDIR /apps_for_pwnable/pwnable
 
